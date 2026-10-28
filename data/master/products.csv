@@ -1,0 +1,7 @@
+﻿sku,name,category,brand,is_synthetic
+SRC-SKU-001,Brake assemblies,Automotive components,Kestrel,true
+SRC-SKU-002,LED lighting panels,Electronics,Novacrest,true
+SRC-SKU-003,Refrigeration control boards,Electronics,Veyra,true
+SRC-SKU-004,Packaged household cleaners,FMCG,Silverleaf,true
+SRC-SKU-005,Hydraulic pumps,Industrial machinery,Asteron,true
+SRC-SKU-006,Electrical switchgear,Electrical equipment,Novacrest,true

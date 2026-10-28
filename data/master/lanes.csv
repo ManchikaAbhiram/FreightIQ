@@ -1,0 +1,5 @@
+﻿origin,destination,distance_km,is_synthetic
+Hyderabad,Bengaluru,570,true
+Hyderabad,Chennai,625,true
+Chennai,Bengaluru,350,true
+Mumbai,Pune,150,true

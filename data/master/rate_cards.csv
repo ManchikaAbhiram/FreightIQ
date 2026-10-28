@@ -1,0 +1,17 @@
+﻿code,carrier_code,origin,destination,service_type,effective_from,effective_to,currency,minimum_charge,rate_per_kg,fuel_percent,dim_divisor,is_synthetic
+SRC-RATE-01-01,SRC-CAR-001,Hyderabad,Bengaluru,Road Express,2025-01-01,2027-12-31,INR,475,11.50,11,5000,true
+SRC-RATE-01-02,SRC-CAR-001,Hyderabad,Chennai,Road Express,2025-01-01,2027-12-31,INR,500,12.50,11,5000,true
+SRC-RATE-01-03,SRC-CAR-001,Chennai,Bengaluru,Road Express,2025-01-01,2027-12-31,INR,525,13.50,11,5000,true
+SRC-RATE-01-04,SRC-CAR-001,Mumbai,Pune,Road Express,2025-01-01,2027-12-31,INR,550,14.50,11,5000,true
+SRC-RATE-02-01,SRC-CAR-002,Hyderabad,Bengaluru,Road Express,2025-01-01,2027-12-31,INR,475,12.50,12,5000,true
+SRC-RATE-02-02,SRC-CAR-002,Hyderabad,Chennai,Road Express,2025-01-01,2027-12-31,INR,500,13.50,12,5000,true
+SRC-RATE-02-03,SRC-CAR-002,Chennai,Bengaluru,Road Express,2025-01-01,2027-12-31,INR,525,14.50,12,5000,true
+SRC-RATE-02-04,SRC-CAR-002,Mumbai,Pune,Road Express,2025-01-01,2027-12-31,INR,550,15.50,12,5000,true
+SRC-RATE-03-01,SRC-CAR-003,Hyderabad,Bengaluru,Road Express,2025-01-01,2027-12-31,INR,475,13.50,13,5000,true
+SRC-RATE-03-02,SRC-CAR-003,Hyderabad,Chennai,Road Express,2025-01-01,2027-12-31,INR,500,14.50,13,5000,true
+SRC-RATE-03-03,SRC-CAR-003,Chennai,Bengaluru,Road Express,2025-01-01,2027-12-31,INR,525,15.50,13,5000,true
+SRC-RATE-03-04,SRC-CAR-003,Mumbai,Pune,Road Express,2025-01-01,2027-12-31,INR,550,9.50,13,5000,true
+SRC-RATE-04-01,SRC-CAR-004,Hyderabad,Bengaluru,Road Express,2025-01-01,2027-12-31,INR,475,14.50,14,5000,true
+SRC-RATE-04-02,SRC-CAR-004,Hyderabad,Chennai,Road Express,2025-01-01,2027-12-31,INR,500,15.50,14,5000,true
+SRC-RATE-04-03,SRC-CAR-004,Chennai,Bengaluru,Road Express,2025-01-01,2027-12-31,INR,525,9.50,14,5000,true
+SRC-RATE-04-04,SRC-CAR-004,Mumbai,Pune,Road Express,2025-01-01,2027-12-31,INR,550,10.50,14,5000,true

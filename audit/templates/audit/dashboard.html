@@ -1,0 +1,274 @@
+```django
+{% extends 'audit/base.html' %}
+
+{% block title %}Overview · FreightIQ{% endblock %}
+{% block crumb %}OVERVIEW{% endblock %}
+{% block page_title %}{{ role|title }} workspace{% endblock %}
+
+{% block content %}
+<div class="welcome-row">
+    <div>
+        <div class="eyebrow">YOUR OPERATIONS AT A GLANCE</div>
+        <h2 class="section-heading">Good to see you, {{ user.profile.full_name|default:user.username }}.</h2>
+        <p class="muted">Live operational metrics from the FreightIQ database.</p>
+    </div>
+    <div class="welcome-actions">
+        {% if role == 'SUPPLIER' or user.is_superuser %}
+        <a class="btn btn-primary" href="{% url 'invoice_create' %}">
+            <i class="bi bi-plus-lg"></i> Submit invoice
+        </a>
+        {% endif %}
+        {% if role == 'PLANNER' or user.is_superuser %}
+        <a class="btn btn-primary" href="{% url 'shipment_create' %}">
+            <i class="bi bi-plus-lg"></i> New shipment
+        </a>
+        {% endif %}
+    </div>
+</div>
+
+<div class="metric-grid">
+    {% for k in kpis %}
+    <a class="metric-card" href="{{ k.4 }}">
+        <div class="metric-top">
+            <span>{{ k.0 }}</span>
+            <i class="bi {{ k.3 }}"></i>
+        </div>
+        <strong>{{ k.1 }}</strong>
+        <small>{{ k.2 }}</small>
+        <div class="metric-line {% cycle '' 'cyan' 'violet' 'amber' %}">
+            <span style="width:{{ forloop.counter|add:2 }}2%"></span>
+        </div>
+    </a>
+    {% endfor %}
+</div>
+
+<div class="content-grid">
+    <section class="panel panel-main">
+        <div class="panel-heading">
+            <div>
+                <div class="eyebrow">WORK QUEUE</div>
+                <h3>{{ queue_title }}</h3>
+            </div>
+            {% if role == 'ANALYST' or role == 'MANAGER' or role == 'CARRIER' or role == 'FINANCE' %}
+            <a class="text-link" href="{% url 'case_queue' %}">View records <i class="bi bi-arrow-up-right"></i></a>
+            {% elif role == 'PLANNER' %}
+            <a class="text-link" href="{% url 'shipment_list' %}">View records <i class="bi bi-arrow-up-right"></i></a>
+            {% else %}
+            <a class="text-link" href="{% url 'invoice_list' %}">View records <i class="bi bi-arrow-up-right"></i></a>
+            {% endif %}
+        </div>
+
+        {% if records %}
+        <div class="table-responsive">
+            <table class="table data-table align-middle">
+                <thead>
+                    <tr>
+                        <th>RECORD</th>
+                        <th>DETAIL</th>
+                        <th>STATUS</th>
+                        <th class="text-end">OPEN</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for record in records %}
+                    <tr>
+                        <td>
+                            <strong>
+                                {% if record.code %}
+                                    {{ record.code }}
+                                {% else %}
+                                    {{ record }}
+                                {% endif %}
+                            </strong>
+                            <small class="d-block muted">
+                                {% if record.invoice_number %}
+                                    {{ record.invoice_number }}
+                                {% elif record.shipment_date %}
+                                    {{ record.shipment_date }}
+                                {% else %}
+                                    {{ record.created_at|date:'d M Y' }}
+                                {% endif %}
+                            </small>
+                        </td>
+
+                        <td>
+                            {% if record.invoice %}
+                                {{ record.invoice.carrier.name }} · {{ record.invoice.shipment.lane }}
+                            {% elif record.invoice_number %}
+                                {{ record.carrier.name }} · {{ record.shipment.lane }}
+                            {% elif record.shipment_date %}
+                                {{ record.carrier.name }} · {{ record.lane }}
+                            {% else %}
+                                {{ record.issue_type|default:'Operational record' }}
+                            {% endif %}
+                        </td>
+
+                        <td>
+                            {% if record.status %}
+                                <span class="status-pill status-{{ record.status|lower }}">
+                                    {{ record.get_status_display|default:record.status }}
+                                </span>
+                            {% elif record.validation_status %}
+                                <span class="status-pill status-{{ record.validation_status|lower }}">
+                                    {{ record.validation_status }}
+                                </span>
+                            {% elif record.delivery_status %}
+                                <span class="status-pill">
+                                    {{ record.delivery_status }}
+                                </span>
+                            {% else %}
+                                <span class="status-pill">Unknown</span>
+                            {% endif %}
+                        </td>
+
+                        <td class="text-end">
+                            {% if record.invoice %}
+                            <a class="icon-link" href="{% url 'invoice_detail' record.invoice.pk %}">
+                                <i class="bi bi-arrow-up-right"></i>
+                            </a>
+                            {% elif record.invoice_number %}
+                            <a class="icon-link" href="{% url 'invoice_detail' record.pk %}">
+                                <i class="bi bi-arrow-up-right"></i>
+                            </a>
+                            {% elif record.shipment_date %}
+                            <a class="icon-link" href="{% url 'shipment_list' %}">
+                                <i class="bi bi-arrow-up-right"></i>
+                            </a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+        <div class="empty-state">
+            <div class="empty-icon"><i class="bi bi-inbox"></i></div>
+            <h4>Your queue is clear</h4>
+            <p>New records will appear here when they reach your workflow stage.</p>
+        </div>
+        {% endif %}
+    </section>
+
+    <section class="panel side-panel">
+        <div class="panel-heading">
+            <div>
+                <div class="eyebrow">WORKFLOW</div>
+                <h3>Control sequence</h3>
+            </div>
+            <span class="tiny-tag">LIVE</span>
+        </div>
+
+        <div class="workflow-list">
+            <div class="workflow-step">
+                <span class="step-icon"><i class="bi bi-file-earmark-check"></i></span>
+                <div><strong>Invoice validation</strong><small>Contract and shipment checks</small></div>
+                <span class="step-arrow">01</span>
+            </div>
+            <div class="workflow-step">
+                <span class="step-icon blue"><i class="bi bi-search"></i></span>
+                <div><strong>Exception investigation</strong><small>Findings and evidence</small></div>
+                <span class="step-arrow">02</span>
+            </div>
+            <div class="workflow-step">
+                <span class="step-icon violet"><i class="bi bi-person-check"></i></span>
+                <div><strong>Decision &amp; agreement</strong><small>Manager then carrier</small></div>
+                <span class="step-arrow">03</span>
+            </div>
+            <div class="workflow-step">
+                <span class="step-icon amber"><i class="bi bi-bank"></i></span>
+                <div><strong>Finance reconciliation</strong><small>Verify, apply and reconcile</small></div>
+                <span class="step-arrow">04</span>
+            </div>
+        </div>
+
+        <div class="subsection">
+            <h4>Invoice status distribution</h4>
+            <div class="chart-wrap">
+                <canvas id="invoiceStatusChart" aria-label="Invoice status distribution chart" role="img"></canvas>
+            </div>
+        </div>
+
+        {% if role != 'PLANNER' %}
+        <div class="financial-summary">
+            <span>Invoice value in scope</span>
+            <strong>₹{{ counts.billed|floatformat:2 }}</strong>
+            <span>Discrepancy amount in scope</span>
+            <strong class="text-cyan">₹{{ counts.discrepancy|floatformat:2 }}</strong>
+        </div>
+        {% endif %}
+    </section>
+</div>
+
+{% if user.is_superuser %}
+<section class="panel mt-4">
+    <div class="panel-heading">
+        <div>
+            <div class="eyebrow">SYSTEM ADMINISTRATION</div>
+            <h3>Recent audit activity</h3>
+        </div>
+        <a class="text-link" href="{% url 'audit_history' %}">Full history →</a>
+    </div>
+
+    {% for event in recent_events %}
+    <div class="activity-row">
+        <span class="activity-dot"></span>
+        <div>
+            <strong>{{ event.action }}</strong>
+            <small>{{ event.entity_type }} · {{ event.entity_id }} · {{ event.actor|default:'System' }}</small>
+        </div>
+        <time>{{ event.created_at|date:'d M, H:i' }}</time>
+    </div>
+    {% empty %}
+    <p class="muted">No audit activity yet.</p>
+    {% endfor %}
+</section>
+{% endif %}
+{% endblock %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script>
+{{ invoice_status_data|json_script:"invoice-status-data" }}
+<script>
+const statusDataElement = document.getElementById('invoice-status-data');
+const statusRows = statusDataElement
+    ? JSON.parse(statusDataElement.textContent || '[]')
+    : [];
+const chartCanvas = document.getElementById('invoiceStatusChart');
+
+if (chartCanvas && statusRows.length && typeof Chart !== 'undefined') {
+    new Chart(chartCanvas, {
+        type: 'doughnut',
+        data: {
+            labels: statusRows.map(x => x.status.replaceAll('_', ' ')),
+            datasets: [{
+                data: statusRows.map(x => x.total),
+                backgroundColor: [
+                    '#477bff', '#41d8e8', '#a48bff',
+                    '#f6c36a', '#51d6a1', '#ff777e', '#54708e'
+                ],
+                borderColor: '#101a2b',
+                borderWidth: 3,
+                hoverOffset: 5
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        color: '#91a4bf',
+                        boxWidth: 8,
+                        padding: 12,
+                        font: { size: 10 }
+                    }
+                }
+            }
+        }
+    });
+}
+</script>
+{% endblock %}
+```

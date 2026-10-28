@@ -1,0 +1,5 @@
+﻿code,name,contact_email,active,is_synthetic
+SRC-CAR-001,BluePeak Freight Network,operations1@example.invalid,true,true
+SRC-CAR-002,Deccan Route Logistics,operations2@example.invalid,true,true
+SRC-CAR-003,SwiftHarbor Cargo,operations3@example.invalid,true,true
+SRC-CAR-004,Meridian Transit Services,operations4@example.invalid,true,true

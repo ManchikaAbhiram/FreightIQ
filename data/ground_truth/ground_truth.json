@@ -1,0 +1,83 @@
+[
+  {
+    "record_identifier": "SRC-FINV-2026-0002",
+    "issue_type": "Incorrect billed base freight",
+    "expected_validation_outcome": "OVERCHARGE",
+    "expected_workflow_outcome": "Investigation required",
+    "expected_financial_result": "42.00",
+    "severity": "Medium",
+    "rule": "Discrepancy = billed total minus contract-calculated expected total."
+  },
+  {
+    "record_identifier": "SRC-FINV-2026-0003",
+    "issue_type": "Incorrect fuel surcharge",
+    "expected_validation_outcome": "OVERCHARGE",
+    "expected_workflow_outcome": "Investigation required",
+    "expected_financial_result": "35.00",
+    "severity": "Medium",
+    "rule": "Discrepancy = billed total minus contract-calculated expected total."
+  },
+  {
+    "record_identifier": "SRC-FINV-2026-0004",
+    "issue_type": "Unsupported accessorial charge",
+    "expected_validation_outcome": "OVERCHARGE",
+    "expected_workflow_outcome": "Investigation required",
+    "expected_financial_result": "62.00",
+    "severity": "Medium",
+    "rule": "Discrepancy = billed total minus contract-calculated expected total."
+  },
+  {
+    "record_identifier": "SRC-FINV-2026-0007",
+    "issue_type": "Incorrect billed base freight",
+    "expected_validation_outcome": "OVERCHARGE",
+    "expected_workflow_outcome": "Investigation required",
+    "expected_financial_result": "47.00",
+    "severity": "Medium",
+    "rule": "Discrepancy = billed total minus contract-calculated expected total."
+  },
+  {
+    "record_identifier": "SRC-FINV-2026-0008",
+    "issue_type": "Incorrect fuel surcharge",
+    "expected_validation_outcome": "OVERCHARGE",
+    "expected_workflow_outcome": "Investigation required",
+    "expected_financial_result": "40.00",
+    "severity": "Medium",
+    "rule": "Discrepancy = billed total minus contract-calculated expected total."
+  },
+  {
+    "record_identifier": "SRC-FINV-2026-0009",
+    "issue_type": "Unsupported accessorial charge",
+    "expected_validation_outcome": "OVERCHARGE",
+    "expected_workflow_outcome": "Investigation required",
+    "expected_financial_result": "67.00",
+    "severity": "Medium",
+    "rule": "Discrepancy = billed total minus contract-calculated expected total."
+  },
+  {
+    "record_identifier": "SRC-FINV-2026-0010",
+    "issue_type": "Declared total differs from charge components",
+    "expected_validation_outcome": "VALIDATION_FAILURE",
+    "expected_workflow_outcome": "Data correction required",
+    "expected_financial_result": "15.00",
+    "severity": "Low",
+    "rule": "Declared invoice total must equal the sum of billed charge components."
+  },
+  {
+    "record_identifier": "SRC-FINV-2026-0011",
+    "issue_type": "Incorrect billed base freight",
+    "expected_validation_outcome": "OVERCHARGE",
+    "expected_workflow_outcome": "Investigation required",
+    "expected_financial_result": "51.00",
+    "severity": "Medium",
+    "rule": "Discrepancy = billed total minus contract-calculated expected total."
+  },
+  {
+    "record_identifier": "SRC-FINV-2026-0012",
+    "issue_type": "Missing supporting evidence",
+    "expected_validation_outcome": "VALIDATION_FAILURE",
+    "expected_workflow_outcome": "Evidence required",
+    "expected_financial_result": "0.00",
+    "severity": "Medium",
+    "rule": "Invoice must reference supporting evidence."
+  }
+]

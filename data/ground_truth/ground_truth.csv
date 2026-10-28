@@ -1,0 +1,10 @@
+﻿record_identifier,issue_type,expected_validation_outcome,expected_workflow_outcome,expected_financial_result,severity,rule
+SRC-FINV-2026-0002,Incorrect billed base freight,OVERCHARGE,Investigation required,42.00,Medium,Discrepancy = billed total minus contract-calculated expected total.
+SRC-FINV-2026-0003,Incorrect fuel surcharge,OVERCHARGE,Investigation required,35.00,Medium,Discrepancy = billed total minus contract-calculated expected total.
+SRC-FINV-2026-0004,Unsupported accessorial charge,OVERCHARGE,Investigation required,62.00,Medium,Discrepancy = billed total minus contract-calculated expected total.
+SRC-FINV-2026-0007,Incorrect billed base freight,OVERCHARGE,Investigation required,47.00,Medium,Discrepancy = billed total minus contract-calculated expected total.
+SRC-FINV-2026-0008,Incorrect fuel surcharge,OVERCHARGE,Investigation required,40.00,Medium,Discrepancy = billed total minus contract-calculated expected total.
+SRC-FINV-2026-0009,Unsupported accessorial charge,OVERCHARGE,Investigation required,67.00,Medium,Discrepancy = billed total minus contract-calculated expected total.
+SRC-FINV-2026-0010,Declared total differs from charge components,VALIDATION_FAILURE,Data correction required,15.00,Low,Declared invoice total must equal the sum of billed charge components.
+SRC-FINV-2026-0011,Incorrect billed base freight,OVERCHARGE,Investigation required,51.00,Medium,Discrepancy = billed total minus contract-calculated expected total.
+SRC-FINV-2026-0012,Missing supporting evidence,VALIDATION_FAILURE,Evidence required,0.00,Medium,Invoice must reference supporting evidence.

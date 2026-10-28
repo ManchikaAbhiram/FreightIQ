@@ -1,0 +1,73 @@
+{
+  "passed": true,
+  "counts": {
+    "Carrier": 100,
+    "Supplier": 30,
+    "Customer": 15,
+    "Product": 40,
+    "Lane": 20,
+    "ServiceType": 1,
+    "RateCard": 2000,
+    "WeightTier": 6000,
+    "Accessorial": 5,
+    "RateCardAccessorial": 10000,
+    "Shipment": 20001,
+    "ShipmentAccessorial": 3919,
+    "ShipmentLeg": 20000,
+    "WeightMeasurement": 20000,
+    "DeliveryRecord": 20000,
+    "FreightInvoice": 15000,
+    "InvoiceLine": 45000,
+    "AuditException": 4845,
+    "AnalystReview": 16,
+    "ManagerDecision": 15,
+    "CarrierResponse": 6,
+    "CreditNote": 3,
+    "CreditApplication": 3,
+    "InvoiceAdjustment": 3,
+    "ReconciliationRecord": 6,
+    "AuditEvent": 15046
+  },
+  "workflow_state_counts": {
+    "invoice_status": {
+      "EXCEPTION": 4210,
+      "READY_FOR_PAYABLE": 10155,
+      "REVIEW_REQUIRED": 635
+    },
+    "validation_status": {
+      "OVERCHARGE": 4210,
+      "VALID": 10155,
+      "VALIDATION_FAILURE": 635
+    },
+    "exception_status": {
+      "CARRIER_ACCEPTED": 1,
+      "CARRIER_COUNTEROFFER": 1,
+      "CARRIER_DISPUTED": 1,
+      "CARRIER_RESPONSE": 6,
+      "FINANCE_RECONCILIATION": 2,
+      "MANAGER_REVIEW": 1,
+      "NEW": 4830,
+      "RECONCILED": 1,
+      "REJECTED": 1,
+      "RETURNED_TO_ANALYST": 1
+    },
+    "credit_note_verification": {
+      "VERIFIED": 3
+    }
+  },
+  "financial_totals": {
+    "billed": "592884480.25",
+    "expected": "591831964.350000",
+    "positive_discrepancy": "1052515.90"
+  },
+  "error_count": 0,
+  "errors": [],
+  "discrepancy_statistics": {
+    "positive_exception_count": 4210,
+    "unique_positive_discrepancies": 4210,
+    "minimum": "175.07",
+    "maximum": "324.94",
+    "average": "250.0037767220902612826603325"
+  },
+  "synthetic_records": 182034
+}

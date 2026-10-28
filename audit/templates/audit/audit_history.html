@@ -1,0 +1,9 @@
+{% extends 'audit/base.html' %}{% block page_title %}Audit history{% endblock %}{% block crumb %}GOVERNANCE / AUDIT HISTORY{% endblock %}{% block content %}<div class="welcome-row"><div><div class="eyebrow">IMMUTABLE BUSINESS HISTORY</div><h2 class="section-heading">Audit event register</h2><p class="muted">Persistent records of approvals, validation, workflow transitions and financial actions.</p></div><a href="{% url 'export_csv' 'events' %}" class="btn btn-outline-light">Export CSV</a></div><section class="panel"><div class="table-responsive"><table class="table data-table"><thead><tr><th>TIME</th><th>ACTOR</th><th>ACTION</th><th>ENTITY</th><th>STATE</th><th>DETAILS</th><th>AMOUNT</th></tr></thead><tbody>{% for e in events %}<tr><td>{{ e.created_at|date:'d M Y, H:i:s' }}</td><td>{% if e.actor %}
+    {% if e.actor.profile %}
+        {{ e.actor.profile.full_name|default:e.actor.username }}
+    {% else %}
+        {{ e.actor.username }}
+    {% endif %}
+{% else %}
+    System
+{% endif %}</td><td><strong>{{ e.action }}</strong></td><td>{{ e.entity_type }}<small class="d-block muted">{{ e.entity_id }}</small></td><td>{{ e.previous_state|default:'—' }} → {{ e.new_state|default:'—' }}</td><td>{{ e.details|truncatechars:140 }}</td><td>{% if e.amount != None %}₹{{ e.amount|floatformat:2 }}{% else %}—{% endif %}</td></tr>{% empty %}<tr><td colspan="7" class="empty-table">No audit events yet.</td></tr>{% endfor %}</tbody></table></div></section>{% endblock %}

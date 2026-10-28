@@ -1,0 +1,159 @@
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Request Access | FreightIQ</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet">
+    <link href="{% static 'css/app.css' %}" rel="stylesheet">
+</head>
+
+<body class="auth-page">
+
+    <div class="auth-wrap register-wrap">
+
+        <section class="auth-story">
+            <a class="brand auth-brand" href="{% url 'login' %}">
+                <span class="brand-mark">▦</span>
+                <span>
+                    Freight<span class="brand-accent">IQ</span>
+                    <small>FREIGHT CONTROL CENTER</small>
+                </span>
+            </a>
+
+            <div class="story-content">
+                <div class="eyebrow">ACCESS GOVERNANCE</div>
+                <h1>Right role.<br><span>Clear ownership.</span></h1>
+                <p>
+                    Every workspace has specific responsibilities,
+                    permissions and boundaries. Your access activates
+                    only after administrator review.
+                </p>
+            </div>
+
+            <div class="story-foot">
+                SECURE REGISTRATION · APPROVAL REQUIRED
+            </div>
+        </section>
+
+        <section class="auth-panel">
+            <div class="auth-card register-card">
+
+                <div class="eyebrow">CREATE YOUR REQUEST</div>
+                <h2>Request access</h2>
+                <p class="muted">
+                    Enter your details and select your operational role.
+                </p>
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="alert alert-info" role="alert">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                {% if form.errors %}
+                    <div class="alert alert-danger" role="alert">
+                        <strong>Registration was not submitted.</strong>
+                        <p class="mb-1">
+                            Please correct the following errors:
+                        </p>
+                        {{ form.errors }}
+                    </div>
+                {% endif %}
+
+                <form method="post"
+                      action="{% url 'register' %}"
+                      novalidate>
+                    {% csrf_token %}
+
+                    {% for field in form %}
+                        <div class="mb-3">
+                            <label class="form-label"
+                                   for="{{ field.id_for_label }}">
+                                {{ field.label }}
+                            </label>
+
+                            {{ field }}
+
+                            {% if field.help_text %}
+                                <div class="form-text">
+                                    {{ field.help_text }}
+                                </div>
+                            {% endif %}
+
+                            {% for error in field.errors %}
+                                <div class="field-error text-danger">
+                                    {{ error }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+
+                    <div class="role-description">
+                        <div class="role-description-title">
+                            <span class="pulse-dot"></span>
+                            ROLE RESPONSIBILITIES
+                        </div>
+
+                        <p id="role-description">
+                            Select a role to view its responsibilities.
+                        </p>
+
+                        <small>
+                            This information is read-only and does not
+                            grant permissions.
+                        </small>
+                    </div>
+
+                    <button type="submit"
+                            class="btn btn-primary w-100 auth-submit mt-4">
+                        Submit for approval →
+                    </button>
+                </form>
+
+                <p class="auth-note">
+                    <a href="{% url 'login' %}">
+                        ← Back to sign in
+                    </a>
+                </p>
+
+            </div>
+        </section>
+
+    </div>
+
+    
+<script>
+    const descriptions = JSON.parse(
+        '{{ responsibilities|escapejs }}'
+    );
+
+    const select = document.getElementById('role-select');
+    const description = document.getElementById('role-description');
+
+    function updateRole() {
+        if (!select || !description) {
+            return;
+        }
+
+        description.textContent =
+            descriptions[select.value] ||
+            'Role information unavailable.';
+    }
+
+    if (select && description) {
+        select.addEventListener('change', updateRole);
+        updateRole();
+    }
+</script>
+
+
+</body>
+</html>
