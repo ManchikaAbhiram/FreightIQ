@@ -37,10 +37,14 @@ The repository intentionally does **not** include `db.sqlite3` or database backu
 Generate a compact demo dataset first:
 
 ```powershell
-python manage.py generate_freight_data --seed 20261022 --carriers 12 --shipments 100 --invoices 70
+python manage.py generate_freight_data --seed 20261022 --carriers 100 --shipments 20000 --invoices 15000
+
 python manage.py validate_freight_data
+
 python manage.py check
+
 python manage.py test
+
 python manage.py runserver
 ```
 
